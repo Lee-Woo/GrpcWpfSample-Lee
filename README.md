@@ -1,6 +1,12 @@
 # Overview
 
-Multi client communication based on GRPC
+### Multi client communication based on GRPC
+
+Reference author cactuaroid open source project,
+
+link:https://github.com/cactuaroid/GrpcWpfSample
+
+,and the running result is:
 ![运行效果图](运行效果图.png)
 
 Chat server-client applications as a sample implementation using [gRPC for .NET (Grpc.AspNetCore/Grpc.Net.Client)](https://github.com/grpc/grpc-dotnet) and [gRPC for C# (Grpc.Core)](https://www.nuget.org/packages/Grpc.Core).
