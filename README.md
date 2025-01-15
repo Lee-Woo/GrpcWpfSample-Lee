@@ -1,24 +1,27 @@
 # Overview
 
 Multi client communication based on GRPC
+![运行效果图](运行效果图.png)
 
 Chat server-client applications as a sample implementation using [gRPC for .NET (Grpc.AspNetCore/Grpc.Net.Client)](https://github.com/grpc/grpc-dotnet) and [gRPC for C# (Grpc.Core)](https://www.nuget.org/packages/Grpc.Core).
 
 ### Client
-|Project|Type|Target|Used Package|
-|:--|:--|:--|:--|
-|GrpcChatSample.Client.ConsoleApp|Console app|.NET 6.0|Grpc.Core|
-|GrpcChatSample.Client.Wpf|WPF app|.NET Framework 4.8|Grpc.Core|
-|GrpcChatSample2.Client.ConsoleApp|Console app|.NET 6.0|Grpc.Net.Client|
-|GrpcChatSample2.Client.Wpf|WPF app|.NET 6.0|Grpc.Net.Client|
+
+| Project                           | Type        | Target             | Used Package    |
+| :-------------------------------- | :---------- | :----------------- | :-------------- |
+| GrpcChatSample.Client.ConsoleApp  | Console app | .NET 6.0           | Grpc.Core       |
+| GrpcChatSample.Client.Wpf         | WPF app     | .NET Framework 4.8 | Grpc.Core       |
+| GrpcChatSample2.Client.ConsoleApp | Console app | .NET 6.0           | Grpc.Net.Client |
+| GrpcChatSample2.Client.Wpf        | WPF app     | .NET 6.0           | Grpc.Net.Client |
 
 ### Server
-|Project|Type|Target|Used Package|
-|:--|:--|:--|:--|
-|GrpcChatSample.Server.ConsoleApp|Console app|.NET 6.0|Grpc.Core|
-|GrpcChatSample.Server.Wpf|WPF app|.NET Framework 4.8|Grpc.Core|
-|GrpcChatSample2.Server.ConsoleApp|Console app|.NET 6.0|Grpc.AspNetCore|
-|GrpcChatSample2.Server.Wpf|WPF app|.NET 6.0|Grpc.AspNetCore|
+
+| Project                           | Type        | Target             | Used Package    |
+| :-------------------------------- | :---------- | :----------------- | :-------------- |
+| GrpcChatSample.Server.ConsoleApp  | Console app | .NET 6.0           | Grpc.Core       |
+| GrpcChatSample.Server.Wpf         | WPF app     | .NET Framework 4.8 | Grpc.Core       |
+| GrpcChatSample2.Server.ConsoleApp | Console app | .NET 6.0           | Grpc.AspNetCore |
+| GrpcChatSample2.Server.Wpf        | WPF app     | .NET 6.0           | Grpc.AspNetCore |
 
 - These projects are not made from ASP.NET Core gRPC service project template, but adding gRPC service/client on console/WPF app project.
 - .NET Framework apps are supported by Grpc.Core.
@@ -28,15 +31,17 @@ Chat server-client applications as a sample implementation using [gRPC for .NET 
 - You cannot put proto file in WPF project. See https://github.com/grpc/grpc/issues/20402
 
 Implements
-- *Simple RPC*: Client registers a message to server.
-- *Server-side streaming RPC*: Server streams messages to clients.
-- *Interceptors*: Client puts its ID for each calls. Server checks client IP address and ID for each calls.
-#This project is a secondary development implementation based on the open source project of the author cactuaroid
- The link is ： https://github.com/cactuaroid/GrpcWpfSample
 
-- *Request Header R/W*: Client puts its ID on request header (metadata) of the call.
+- _Simple RPC_: Client registers a message to server.
+- _Server-side streaming RPC_: Server streams messages to clients.
+- _Interceptors_: Client puts its ID for each calls. Server checks client IP address and ID for each calls.
+  #This project is a secondary development implementation based on the open source project of the author cactuaroid
+  The link is ： https://github.com/cactuaroid/GrpcWpfSample
+
+- _Request Header R/W_: Client puts its ID on request header (metadata) of the call.
 
 Read the official information
+
 - https://grpc.io/docs/languages/csharp/
 - https://grpc.io/docs/guides/
 - https://docs.microsoft.com/ja-jp/aspnet/core/grpc/
@@ -66,6 +71,7 @@ DB is not implemented but on-memory `List` is used as a placeholder.
 1. Your message will be registered on server, and you can see it on the client.
 
 # How to Enable SSL
+
 ### grpc-dotnet
 
 See these classes. Enable `listenOptions.UseHttps()` of server and locate .pfx file. Set `var https = true` of client.
@@ -80,17 +86,18 @@ See these classes. Locate required files and then change `var secure = true;` to
 - [ChatGrpcServer.cs](https://github.com/cactuaroid/GrpcWpfSample/blob/master/GrpcCore/GrpcChatSample.Server/Grpc/ChatGrpcServer.cs)
 - [ChatServiceClient.cs](https://github.com/cactuaroid/GrpcWpfSample/blob/master/GrpcCore/GrpcChatSample.Client/ChatServiceClient.cs)
 
-|File Name|Description|
-|:--|:--|
-|localhost_server.crt   |Server's certificate|
-|localhost_serverkey.pem|Private key of the server's certificate|
-|localhost_client.crt   |Client's certificate (optional)|
-|localhost_clientkey.pem|Private key of the client's certificate (optional)|
+| File Name               | Description                                        |
+| :---------------------- | :------------------------------------------------- |
+| localhost_server.crt    | Server's certificate                               |
+| localhost_serverkey.pem | Private key of the server's certificate            |
+| localhost_client.crt    | Client's certificate (optional)                    |
+| localhost_clientkey.pem | Private key of the client's certificate (optional) |
 
 - All these files have to be PEM format without encryption.
 - The server has to have the client's certificate or its CA certificate and vice versa. [Here](https://serverfault.com/questions/968343/why-do-i-need-a-certificate-to-establish-a-secure-grpc-connection-as-a-client) you can find an idea about this.
-- The sample implementation includes client authentication as well. You can disable it then you don't need client's certificate and its private key. 
+- The sample implementation includes client authentication as well. You can disable it then you don't need client's certificate and its private key.
 
 ### Remarks
+
 - You have to set "localhost" as Common Name (CN) of the certificate for your test on localhost.
 - [XCA](https://hohnstaedt.de/xca/) is the one of the easy way to create the these files.
